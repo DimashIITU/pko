@@ -45,7 +45,6 @@ function PushNotificationModal({ isOpen, onClose }: { isOpen: boolean; onClose: 
         userVisibleOnly: true,
         applicationServerKey: urlBase64ToUint8Array(process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!),
       });
-      debugger
       setSubscription(sub);
       const serializedSub = JSON.parse(JSON.stringify(sub));
       await subscribeUser(serializedSub);

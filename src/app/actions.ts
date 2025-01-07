@@ -12,9 +12,6 @@ webpush.setVapidDetails(
 let subscription: webpush.PushSubscription | null = null
  
 export async function subscribeUser(sub: webpush.PushSubscription) {
-    console.log("its work");
-    
-    debugger;
     // Сохраните подписку в базе данных
     await dbClient.account.create({
       data: {
@@ -59,7 +56,7 @@ export async function sendNotification(message: string) {
 export async function sendNotificationToAllUsers(message: string) {
     // Извлеките все подписки из базы данных
     const subscriptions = await dbClient.account.findMany();
-    debugger
+
     const notificationPayload = JSON.stringify({
       title: 'Привет!',
       body: message,
