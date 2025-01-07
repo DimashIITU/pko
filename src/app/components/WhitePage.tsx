@@ -14,7 +14,9 @@ export const WhitePage = () => {
                 <h1 style={{fontSize: "50px"}}>Орынбасар Диас</h1>
                 <p>Не упустите свой шанс изменить свою жизнь! Уже более 1000 человек заработали деньги только за то, что написали мне. Вы могли бы быть следующим! Перейдите по ссылке и начните выигрывать прямо сейчас!</p>
                 <div style={{display: "flex", justifyContent: "center", alignItems: "center" , gap: "10px"}}>
-                    <button style={{padding: "20px 30px", backgroundColor: "#007bff", borderRadius: "50px", marginBottom: "10px", marginTop: "10px"}}>Написать мне</button>
+                    <button style={{padding: "20px 30px", backgroundColor: "#007bff", borderRadius: "50px", marginBottom: "10px", marginTop: "10px"}}>
+                        <a href="https://t.me/diasorynbasarbot?start=link_4RBFNsLtbo">Написать мне</a>
+                    </button>
                     <InstallPWAButton/>
                 </div>
             </div>
