@@ -4,7 +4,6 @@
 import { useState, useEffect } from 'react';
 
 export const  InstallPWAButton = () =>  {
-  const [isInstallable, setIsInstallable] = useState(false); // Для Android
   const [deferredPrompt, setDeferredPrompt] = useState(null);
 
   const [isIOS, setIsIOS] = useState(false); // Для iOS
@@ -21,7 +20,6 @@ export const  InstallPWAButton = () =>  {
     const handleBeforeInstallPrompt = (event: any) => {
       event.preventDefault(); // Отключить стандартное поведение
       setDeferredPrompt(event); // Сохранить событие
-      setIsInstallable(true); // Показать кнопку установки
     };
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
@@ -44,19 +42,12 @@ export const  InstallPWAButton = () =>  {
     }
   };
 
-  if (isStandalone) {
-    // Если приложение уже установлено
-    return null;
-  }
-
   return (
     <div>
       {/* Для Android */}
-      {isInstallable && (
         <button onClick={handleInstallPWA} className="install-button">
           Установить приложение
         </button>
-      )}
 
       {/* Для iOS */}
       {isIOS && !isStandalone && (

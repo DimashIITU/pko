@@ -53,15 +53,57 @@ export async function sendNotification(message: string) {
   }
 }
 
-export async function sendNotificationToAllUsers(message: string) {
+// export async function sendNotificationToAllUsers(message: string) {
+//     // Извлеките все подписки из базы данных
+//     const subscriptions = await dbClient.account.findMany();
+
+//     const notificationPayload = JSON.stringify({
+//       title: 'Привет!',
+//       body: message,
+//       icon: '/icon.png', // путь к иконке
+//       data: { url: '/' }, // можно указать URL для перехода
+//     });
+  
+//     const results = [];
+  
+//     for (const sub of subscriptions) {
+//       const pushSubscription: webpush.PushSubscription = {
+//         endpoint: sub.endpoint,
+//         expirationTime: sub.expirationTime,
+//         keys: {
+//           p256dh: sub.p256dh,
+//           auth: sub.auth,
+//         },
+//       };
+  
+//       try {
+//         // Отправка push-уведомления
+//         await webpush.sendNotification(pushSubscription, notificationPayload);
+//         results.push({ success: true });
+//       } catch (error) {
+//         console.error('Error sending notification:', error);
+//         results.push({ success: false, error });
+//       }
+//     }
+  
+//     return results;
+//   }
+
+  export async function sendNotificationToAllUsers(message: string, url: string, imageUrl?: string) {
     // Извлеките все подписки из базы данных
     const subscriptions = await dbClient.account.findMany();
-
+  
     const notificationPayload = JSON.stringify({
-      title: 'Привет!',
+      title: 'Новое уведомление!',
       body: message,
       icon: '/icon.png', // путь к иконке
-      data: { url: '/' }, // можно указать URL для перехода
+      image: imageUrl || '/default-image.png', // изображение в уведомлении
+      actions: [
+        { action: 'view', title: 'Открыть' },
+        { action: 'dismiss', title: 'Закрыть' },
+      ],
+      vibrate: [200, 100, 200], // более заметная вибрация
+      data: { url }, // URL для перехода
     });
   
     const results = [];
