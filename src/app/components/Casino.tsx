@@ -58,13 +58,12 @@ function PushNotificationModal({ isOpen, onClose }: { isOpen: boolean; onClose: 
         <h3>Подпишитесь на уведомления</h3>
         {!subscription && (
           <>
-            <p>Вы будуте в курсе самых новых новостей и бонусов.</p>
+            <p>Вам будут приходить уведомления о сигналах.</p>
             <button onClick={subscribeToPush} disabled={isLoading}>
               {isLoading ? 'Подписка...' : 'Подписаться'}
             </button>
           </>
         )}
-        <button style={{marginLeft: "20px"}} onClick={onClose}>Закрыть</button>
       </div>
       <style jsx>{`
         .modal-overlay {
@@ -117,7 +116,7 @@ export const Casino = () => {
           <PushNotificationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       
     <div style={{ width: "100vw", height: "100vh", overflow: "hidden" }}>
-      <iframe
+    <iframe
         src="https://ping-partners.g2afse.com/click?pid=1566&offer_id=300"
         style={{
           width: "100%",
