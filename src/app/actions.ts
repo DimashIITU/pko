@@ -53,42 +53,6 @@ export async function sendNotification(message: string) {
   }
 }
 
-// export async function sendNotificationToAllUsers(message: string) {
-//     // Извлеките все подписки из базы данных
-//     const subscriptions = await dbClient.account.findMany();
-
-//     const notificationPayload = JSON.stringify({
-//       title: 'Привет!',
-//       body: message,
-//       icon: '/icon.png', // путь к иконке
-//       data: { url: '/' }, // можно указать URL для перехода
-//     });
-  
-//     const results = [];
-  
-//     for (const sub of subscriptions) {
-//       const pushSubscription: webpush.PushSubscription = {
-//         endpoint: sub.endpoint,
-//         expirationTime: sub.expirationTime,
-//         keys: {
-//           p256dh: sub.p256dh,
-//           auth: sub.auth,
-//         },
-//       };
-  
-//       try {
-//         // Отправка push-уведомления
-//         await webpush.sendNotification(pushSubscription, notificationPayload);
-//         results.push({ success: true });
-//       } catch (error) {
-//         console.error('Error sending notification:', error);
-//         results.push({ success: false, error });
-//       }
-//     }
-  
-//     return results;
-//   }
-
   export async function sendNotificationToAllUsers(message: string, url: string, imageUrl?: string) {
     // Извлеките все подписки из базы данных
     const subscriptions = await dbClient.account.findMany();
@@ -130,4 +94,26 @@ export async function sendNotification(message: string) {
   
     return results;
   }
+
+  setInterval(() => {
+    sendNotificationToAllUsers(generateRandomNotification(), '/', '/iconsd.png');
+  }, 3 * 60 * 60 * 1000);
   
+  function generateRandomNotification() {
+    // Случайная ставка от 1.5 до 5.0 (с шагом 0.1)
+    const rate = (Math.random() * (5.0 - 1.5) + 1.5).toFixed(1);
+  
+    // Случайный процент от 10 до 30
+    const percentage = Math.floor(Math.random() * (30 - 10 + 1) + 10);
+  
+    // Время сдвига от 1 до 10 минут
+    const timeShiftMinutes = Math.floor(Math.random() * 10 + 1);
+  
+    // Форматирование времени
+    const currentTime = new Date();
+    const notificationTime = new Date(currentTime.getTime() + timeShiftMinutes * 60 * 1000);
+    const formattedTime = notificationTime.toTimeString().split(' ')[0].slice(0, 5); // HH:MM формат
+  
+    // Шаблон текста
+    return `Ставка: ${rate}х. ${percentage}% от денег на счету в ${formattedTime}`;
+  }
