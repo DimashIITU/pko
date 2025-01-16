@@ -110,7 +110,8 @@ export async function sendNotification(message: string) {
     const timeShiftMinutes = Math.floor(Math.random() * 10 + 1);
   
     // Форматирование времени
-    const currentTime = new Date();
+    const currentTimeAlmaty = new Date().toLocaleString("en-US", {timeZone: "Antarctica/Mawson"});
+    const currentTime = new Date(currentTimeAlmaty);
     const notificationTime = new Date(currentTime.getTime() + timeShiftMinutes * 60 * 1000);
     const formattedTime = notificationTime.toTimeString().split(' ')[0].slice(0, 5); // HH:MM формат
   
