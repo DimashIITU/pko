@@ -1,7 +1,7 @@
 'use server'
  
 import webpush from 'web-push'
-import { dbClient } from './components/db';
+import { dbClient } from '../components/db';
  
 webpush.setVapidDetails(
   'mailto:dinmuhamedserik4@gmail.com',
@@ -9,125 +9,200 @@ webpush.setVapidDetails(
   process.env.VAPID_PRIVATE_KEY!
 )
  
-let subscription: webpush.PushSubscription | null = null
+// let subscription: webpush.PushSubscription | null = null
  
-export async function subscribeUser(sub: webpush.PushSubscription) {
+export async function subscribeUser(sub: webpush.PushSubscription & {phoneNumber: string}) {
     // Сохраните подписку в базе данных
     await dbClient.account.create({
       data: {
         endpoint: sub.endpoint,
         expirationTime: sub.expirationTime,
         p256dh: sub.keys.p256dh,
-        auth: sub.keys.auth
+        auth: sub.keys.auth,
+        phoneNumber: sub.phoneNumber
       },
     });
     return { success: true };
   }
   
  
-export async function unsubscribeUser() {
-  subscription = null
-  // In a production environment, you would want to remove the subscription from the database
-  // For example: await db.subscriptions.delete({ where: { ... } })
-  return { success: true }
-}
- 
-export async function sendNotification(message: string) {
-  if (!subscription) {
-    throw new Error('No subscription available')
+// export async function unsubscribeUser() {
+//   subscription = null
+//   // In a production environment, you would want to remove the subscription from the database
+//   // For example: await db.subscriptions.delete({ where: { ... } })
+//   return { success: true }
+// }
+
+export async function sendNotificationByPhone(message: string, phoneNumber: string, url: string, imageUrl?: string) {
+  const users = await dbClient.account.findMany({
+    where: { phoneNumber },
+  });
+
+  if (!users.length) {
+    throw new Error('Пользователь с данным номером телефона не найден');
   }
- 
-  try {
-    await webpush.sendNotification(
-      subscription,
-      JSON.stringify({
-        title: 'Test Notification',
-        body: message,
-        icon: '/icon.png',
-      })
-    )
-    return { success: true }
-  } catch (error) {
-    console.error('Error sending push notification:', error)
-    return { success: false, error: 'Failed to send notification' }
-  }
-}
 
-// export async function sendNotificationToAllUsers(message: string) {
-//     // Извлеките все подписки из базы данных
-//     const subscriptions = await dbClient.account.findMany();
-
-//     const notificationPayload = JSON.stringify({
-//       title: 'Привет!',
-//       body: message,
-//       icon: '/icon.png', // путь к иконке
-//       data: { url: '/' }, // можно указать URL для перехода
-//     });
-  
-//     const results = [];
-  
-//     for (const sub of subscriptions) {
-//       const pushSubscription: webpush.PushSubscription = {
-//         endpoint: sub.endpoint,
-//         expirationTime: sub.expirationTime,
-//         keys: {
-//           p256dh: sub.p256dh,
-//           auth: sub.auth,
-//         },
-//       };
-  
-//       try {
-//         // Отправка push-уведомления
-//         await webpush.sendNotification(pushSubscription, notificationPayload);
-//         results.push({ success: true });
-//       } catch (error) {
-//         console.error('Error sending notification:', error);
-//         results.push({ success: false, error });
-//       }
-//     }
-  
-//     return results;
-//   }
-
-  export async function sendNotificationToAllUsers(message: string, url: string, imageUrl?: string) {
-    // Извлеките все подписки из базы данных
-    const subscriptions = await dbClient.account.findMany();
-  
-    const notificationPayload = JSON.stringify({
-      title: 'Новое уведомление!',
-      body: message,
-      icon: '/icon.png', // путь к иконке
-      image: imageUrl || '/default-image.png', // изображение в уведомлении
-      actions: [
-        { action: 'view', title: 'Открыть' },
-        { action: 'dismiss', title: 'Закрыть' },
-      ],
-      vibrate: [200, 100, 200], // более заметная вибрация
-      data: { url }, // URL для перехода
-    });
-  
-    const results = [];
-  
-    for (const sub of subscriptions) {
-      const pushSubscription: webpush.PushSubscription = {
-        endpoint: sub.endpoint,
-        expirationTime: sub.expirationTime,
-        keys: {
-          p256dh: sub.p256dh,
-          auth: sub.auth,
-        },
-      };
-  
-      try {
-        // Отправка push-уведомления
-        await webpush.sendNotification(pushSubscription, notificationPayload);
-        results.push({ success: true });
-      } catch (error) {
-        console.error('Error sending notification:', error);
-        results.push({ success: false, error });
-      }
+  const notificationPayload = JSON.stringify({
+    title: 'Новое уведомление!',
+    body: message,
+    icon: '/icon.png', // Путь к иконке
+    image: imageUrl || '/default-image.png', // Изображение в уведомлении
+    actions: [
+      { action: 'view', title: 'Открыть' },
+      { action: 'dismiss', title: 'Закрыть' },
+    ],
+    vibrate: [200, 100, 200], // Вибрация
+    data: { url }, // URL для перехода
+  });
+  for (const user of users) {
+    const pushSubscription: webpush.PushSubscription = {
+      endpoint: user.endpoint,
+      expirationTime: user.expirationTime,
+      keys: {
+        p256dh: user.p256dh,
+        auth: user.auth,
+      },
+    };
+    try {
+      // Отправляем push-уведомление
+      await webpush.sendNotification(pushSubscription, notificationPayload);
+      return { success: true };
+    } catch (error) {
+      console.error('Error sending notification:', error);
+      return { success: false, error };
+    } finally {
+      return 'Error sending notification'
     }
-  
-    return results;
   }
+}
+
+export async function sendNotificationToAllUsers(message: string, url: string, level: number, imageUrl?: string ) {
+  // Извлеките все подписки из базы данных
+  const subscriptions = await dbClient.account.findMany({
+    where: {
+      level, // Условие: уровень равен 0
+    },
+  });
+
+  const notificationPayload = JSON.stringify({
+    title: 'Новое уведомление!',
+    body: message,
+    icon: '/icon.png', // путь к иконке
+    image: imageUrl || '/default-image.png', // изображение в уведомлении
+    actions: [
+      { action: 'view', title: 'Открыть' },
+      { action: 'dismiss', title: 'Закрыть' },
+    ],
+    vibrate: [200, 100, 200], // более заметная вибрация
+    data: { url }, // URL для перехода
+  });
+
+  const results = [];
+
+  for (const sub of subscriptions) {
+    const pushSubscription: webpush.PushSubscription = {
+      endpoint: sub.endpoint,
+      expirationTime: sub.expirationTime,
+      keys: {
+        p256dh: sub.p256dh,
+        auth: sub.auth,
+      },
+    };
+
+    try {
+      // Отправка push-уведомления        
+      await webpush.sendNotification(pushSubscription, notificationPayload);
+      results.push({ success: true });
+    } catch (error) {
+      console.error('Error sending notification:', error);
+      results.push({ success: false, error });
+    }
+  }
+
+  return results;
+}
+
+
+export async function incrementUserLevel(phoneNumber: string ) {
+  try {
+    const updatedUser = await dbClient.account.updateMany({
+      where: {
+        phoneNumber, // Или используйте другое поле, например, phoneNumber
+      },
+      data: {
+        level: {
+          increment: 1, // Увеличиваем поле level на 1
+        },
+      },
+    });
+
+    return updatedUser;
+  } catch (error) {
+    console.error('Error updating user level:', error);
+    return 'Не удалось обновить уровень пользователя';
+  }
+}
+
+export async function decrimentUserLevel(phoneNumber: string ) {
+  try {
+    const updatedUser = await dbClient.account.updateMany({
+      where: {
+        phoneNumber, // Или используйте другое поле, например, phoneNumber
+      },
+      data: {
+        level: {
+          decrement: 1, // Увеличиваем поле level на 1
+        },
+      },
+    });
+
+    return updatedUser;
+  } catch (error) {
+    console.error('Error updating user level:', error);
+    return 'Не удалось обновить уровень пользователя';
+  }
+}
+
+export async function migrateAccounts() {
+  dbClient.account.updateMany({
+    data: {
+      phoneNumber: "",  // Устанавливаем дефолтное значение
+      level: 0,         // Устанавливаем дефолтное значение
+    },
+  });
+
+  // Получаем все аккаунты из базы данных
+  return await dbClient.account.findMany();
+}
   
+setInterval(() => {
+  sendNotificationToAllUsers(generateRandomNotification(), '/', 0, '/iconsd.png');
+}, 3 * 60 * 60 * 1000);
+
+setInterval(() => {
+  sendNotificationToAllUsers(generateRandomNotification(), '/', 1, '/iconsd.png');
+}, 2 * 60 * 60 * 1000);
+
+setInterval(() => {
+  sendNotificationToAllUsers(generateRandomNotification(), '/', 2, '/iconsd.png');
+}, 10 * 60 * 1000);
+
+function generateRandomNotification() {
+  // Случайная ставка от 1.5 до 5.0 (с шагом 0.1)
+  const rate = (Math.random() * (5.0 - 1.5) + 1.5).toFixed(1);
+
+  // Случайный процент от 10 до 30
+  const percentage = Math.floor(Math.random() * (30 - 10 + 1) + 10);
+
+  // Время сдвига от 1 до 10 минут
+  const timeShiftMinutes = Math.floor(Math.random() * 10 + 1);
+
+  // Форматирование времени
+  const currentTimeAlmaty = new Date().toLocaleString("en-US", {timeZone: "Antarctica/Mawson"});
+  const currentTime = new Date(currentTimeAlmaty);
+  const notificationTime = new Date(currentTime.getTime() + timeShiftMinutes * 60 * 1000);
+  const formattedTime = notificationTime.toTimeString().split(' ')[0].slice(0, 5); // HH:MM формат
+
+  // Шаблон текста
+  return `Ставка: ${rate}х. ${percentage}% от денег на счету в ${formattedTime}`;
+}

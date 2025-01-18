@@ -8,7 +8,7 @@ export const WhitePage = () => {
             <div style={{background: "url(/bg.png) center center/cover no-repeat", filter: "brightness(30%)", position: "fixed", left: "0", top: "0", height: "100%", width: "100%"}}></div>
             <div style={{zIndex: "100", position: "relative", backgroundColor: "#00000080", borderRadius: "50px", padding: "40px", paddingTop: "100px", maxWidth: "600px", textAlign: "center", marginTop: "40px"}}>
                 <div style={{position: "absolute", top: "0", left: "50%", transform: "translate(-50%, -50%)"}}>
-                    <div style={{background: "url(/avatar.png) center center/cover no-repeat", filter: "brightness(50%)", borderRadius: "50%", overflow: "hidden", position: "relative", width: "200px", height: "200px"}}>
+                    <div style={{background: "url(/avatar.png) center center/cover no-repeat", filter: "brightness(50%)", borderRadius: "50%", overflow: "hidden", position: "relative", width: "180px", height: "180px"}}>
                     </div>
                 </div>
                 <h1 style={{fontSize: "50px"}}>Орынбасар Диас</h1>
@@ -30,8 +30,8 @@ export const WhitePage = () => {
                 </p>
                 </div>
                 <div style={{display: "flex", justifyContent: "center", alignItems: "center" , gap: "10px", marginTop: "20px"}}>
-                    <Image src="/reg_phone.jpg" width={200} height={100} alt="reg"/>
-                    <Image src="/reg_email.jpg" width={200} height={100} alt="reg"/>
+                    <Image src="/reg_phone.jpg" width={180} height={100} alt="reg"/>
+                    <Image src="/reg_email.jpg" width={180} height={100} alt="reg"/>
                 </div>
             </div>
         </div>
@@ -47,8 +47,8 @@ export const WhitePage = () => {
                 </p>
                 </div>
                 <div style={{display: "flex", justifyContent: "center", alignItems: "center" , gap: "10px", marginTop: "20px"}}>
-                    <Image src="/dep_bank.jpg" width={200} height={100} alt="reg"/>
-                    <Image src="/dep_beeline.jpg" width={200} height={100} alt="reg"/>
+                    <Image src="/dep_bank.jpg" width={180} height={100} alt="reg"/>
+                    <Image src="/dep_beeline.jpg" width={180} height={100} alt="reg"/>
                 </div>
             </div>
         </div>
@@ -65,8 +65,8 @@ export const WhitePage = () => {
                 </p>
                 </div>
                 <div style={{display: "flex", justifyContent: "center", alignItems: "center" , gap: "10px", marginTop: "20px"}}>
-                    <Image src="/notification.jpg" width={200} height={100} alt="reg"/>
-                    <Image src="/aviator.jpg" width={200} height={100} alt="reg"/>
+                    <Image src="/notification.jpg" width={180} height={100} alt="reg"/>
+                    <Image src="/aviator.jpg" width={180} height={100} alt="reg"/>
                 </div>
             </div>
         </div>
@@ -74,7 +74,7 @@ export const WhitePage = () => {
             <div style={{background: "url(/bg.png) center center/cover no-repeat", filter: "brightness(30%)", position: "fixed", left: "0", top: "0", height: "100%", width: "100%"}}></div>
             <div style={{zIndex: "100", position: "relative", backgroundColor: "#00000080", borderRadius: "50px", padding: "40px", paddingTop: "100px", maxWidth: "600px", textAlign: "center", marginTop: "40px"}}>
                 <div style={{position: "absolute", top: "0", left: "50%", transform: "translate(-50%, -50%)"}}>
-                    <div style={{background: "url(/avatar.png) center center/cover no-repeat", filter: "brightness(50%)", borderRadius: "50%", overflow: "hidden", position: "relative", width: "200px", height: "200px"}}>
+                    <div style={{background: "url(/avatar.png) center center/cover no-repeat", filter: "brightness(50%)", borderRadius: "50%", overflow: "hidden", position: "relative", width: "180px", height: "180px"}}>
                     </div>
                 </div>
                 <h1 style={{fontSize: "50px"}}>Обратная связь</h1>

@@ -19,4 +19,6 @@ model Account {
   expirationTime Int?
   p256dh String
   auth String
+  phoneNumber String @default("")
+  level Int @default(0)
 }
