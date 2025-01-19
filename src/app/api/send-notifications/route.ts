@@ -6,7 +6,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { message, url, imgUrl, level } = body;
 
-    if (!message || !url || !imgUrl || (level !== null || undefined)) {
+    if (!message || !url || !imgUrl || (level === null || level === undefined)) {
       return NextResponse.json({ error: 'Message, url, imgUrl, level is required' }, { status: 400 });
     }
 
