@@ -174,6 +174,10 @@ export async function migrateAccounts() {
   // Получаем все аккаунты из базы данных
   return await dbClient.account.findMany();
 }
+
+export async function getAccounts() {
+  return await dbClient.account.findMany();
+}
   
 setInterval(() => {
   sendNotificationToAllUsers(generateRandomNotification(), '/', 0, '/iconsd.png');
