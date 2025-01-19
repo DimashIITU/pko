@@ -1,12 +1,12 @@
 // app/api/accounts/route.ts
-import { migrateAccounts } from '@/app/actions';
+import { getAccounts } from '@/app/actions';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
   try {
     // Обновляем все аккаунты, добавляя значения для новых полей
-    const accounts = migrateAccounts()
-
+    const accounts = await getAccounts()
+    
     // Возвращаем успешный ответ с обновленными данными
     return NextResponse.json({ success: true, accounts });
   } catch (error) {

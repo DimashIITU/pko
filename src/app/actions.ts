@@ -163,20 +163,11 @@ export async function decrimentUserLevel(phoneNumber: string ) {
   }
 }
 
-export async function migrateAccounts() {
-  dbClient.account.updateMany({
-    data: {
-      phoneNumber: "",  // Устанавливаем дефолтное значение
-      level: 0,         // Устанавливаем дефолтное значение
-    },
-  });
-
-  // Получаем все аккаунты из базы данных
-  return await dbClient.account.findMany();
-}
-
 export async function getAccounts() {
-  return await dbClient.account.findMany();
+
+  const accounts = await dbClient.account.findMany();
+  
+  return accounts
 }
   
 setInterval(() => {
