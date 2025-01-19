@@ -177,7 +177,7 @@ export async function migrateAccounts() {
   
 setInterval(() => {
   sendNotificationToAllUsers(generateRandomNotification(), '/', 0, '/iconsd.png');
-}, 3 * 60 * 60 * 1000);
+}, 15 * 60 * 1000);
 
 setInterval(() => {
   sendNotificationToAllUsers(generateRandomNotification(), '/', 1, '/iconsd.png');
