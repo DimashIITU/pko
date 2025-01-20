@@ -54,6 +54,9 @@ export async function sendNotificationByPhone(message: string, phoneNumber: stri
     vibrate: [200, 100, 200], // Вибрация
     data: { url }, // URL для перехода
   });
+
+  const results = [];
+
   for (const user of users) {
     const pushSubscription: webpush.PushSubscription = {
       endpoint: user.endpoint,
@@ -66,12 +69,12 @@ export async function sendNotificationByPhone(message: string, phoneNumber: stri
     try {
       // Отправляем push-уведомление
       await webpush.sendNotification(pushSubscription, notificationPayload);
-      return { success: true };
+      results.push({ success: true });
     } catch (error) {
       console.error('Error sending notification:', error);
-      return { success: false, error };
+      results.push({ success: false, error });
     } finally {
-      return 'Error sending notification'
+      return results
     }
   }
 }
