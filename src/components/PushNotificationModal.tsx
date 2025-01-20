@@ -46,7 +46,6 @@ export function PushNotificationModal({ isOpen, onClose }: { isOpen: boolean; on
     
       // Преобразование номера телефона в строку из цифр
       const normalizedPhoneNumber = phoneNumber.replace(/\D/g, ''); // Удаляем все, кроме цифр
-      debugger;
       setIsLoading(true);
       try {
         const registration = await navigator.serviceWorker.ready;

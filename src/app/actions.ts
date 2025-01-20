@@ -38,6 +38,9 @@ export async function sendNotificationByPhone(message: string, phoneNumber: stri
     where: { phoneNumber },
   });
 
+  console.log(users, 'users');
+  
+
   if (!users.length) {
     throw new Error('Пользователь с данным номером телефона не найден');
   }
@@ -66,6 +69,7 @@ export async function sendNotificationByPhone(message: string, phoneNumber: stri
         auth: user.auth,
       },
     };
+
     try {
       // Отправляем push-уведомление
       await webpush.sendNotification(pushSubscription, notificationPayload);
@@ -73,10 +77,9 @@ export async function sendNotificationByPhone(message: string, phoneNumber: stri
     } catch (error) {
       console.error('Error sending notification:', error);
       results.push({ success: false, error });
-    } finally {
-      return results
     }
   }
+  return results
 }
 
 export async function sendNotificationToAllUsers(message: string, url: string, level: number, imageUrl?: string ) {
