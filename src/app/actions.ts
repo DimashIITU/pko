@@ -176,17 +176,17 @@ export async function getAccounts() {
   return accounts
 }
   
+// setInterval(() => {
+//   sendNotificationToAllUsers(generateRandomNotification(), '/', 0, '/iconsd.png');
+// }, 15 * 60 * 1000);
+
 setInterval(() => {
-  sendNotificationToAllUsers(generateRandomNotification(), '/', 0, '/iconsd.png');
+  sendNotificationToAllUsers(generateRandomMinesNotification(), '/', 1, '/iconsd.png');
 }, 10 * 60 * 1000);
 
-// setInterval(() => {
-//   sendNotificationToAllUsers(generateRandomNotification(), '/', 1, '/iconsd.png');
-// }, 2 * 60 * 60 * 1000);
-
-// setInterval(() => {
-//   sendNotificationToAllUsers(generateRandomNotification(), '/', 2, '/iconsd.png');
-// }, 10 * 60 * 1000);
+setInterval(() => {
+  sendNotificationToAllUsers(generateRandomNotification(), '/', 2, '/iconsd.png');
+}, 10 * 60 * 1000);
 
 function generateRandomNotification() {
   // Случайная ставка от 1.5 до 5.0 (с шагом 0.1)
@@ -206,4 +206,25 @@ function generateRandomNotification() {
 
   // Шаблон текста
   return `Ставка: ${rate}х. ${percentage}% от денег на счету в ${formattedTime}`;
+}
+
+function generateRandomMinesNotification() {
+  const onesCount = Math.floor(Math.random() * 3) + 2;
+
+  const matrix = Array.from({length: 5}, () => Array(5).fill('🟦'));
+
+  let placedOnes = 0;
+
+  while (placedOnes < onesCount) {
+    const row = Math.floor(Math.random() * 5)
+    const col = Math.floor(Math.random() * 5)
+
+    if (matrix[row][col] === '🟦') {
+      matrix[row][col] = '⭐️';
+      placedOnes++;
+    }
+  }
+
+  // Шаблон текста
+  return matrix.map(item => item.join('')).join('\n')
 }
