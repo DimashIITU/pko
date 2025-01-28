@@ -176,17 +176,17 @@ export async function getAccounts() {
   return accounts
 }
   
-// setInterval(() => {
-//   sendNotificationToAllUsers(generateRandomNotification(), '/', 0, '/iconsd.png');
-// }, 15 * 60 * 1000);
+setInterval(() => {
+  sendNotificationToAllUsers(generateRandomMinesNotification(), '/', 0, '/iconsd.png');
+}, 24 * 60 * 60 * 1000);
 
 setInterval(() => {
   sendNotificationToAllUsers(generateRandomMinesNotification(), '/', 1, '/iconsd.png');
 }, 10 * 60 * 1000);
 
-setInterval(() => {
-  sendNotificationToAllUsers(generateRandomNotification(), '/', 2, '/iconsd.png');
-}, 10 * 60 * 1000);
+// setInterval(() => {
+//   sendNotificationToAllUsers(generateRandomNotification(), '/', 2, '/iconsd.png');
+// }, 10 * 60 * 1000);
 
 function generateRandomNotification() {
   // Случайная ставка от 1.5 до 5.0 (с шагом 0.1)
