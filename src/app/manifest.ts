@@ -2,27 +2,37 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Pokerdom",
-    short_name: "Pokerdom",
-    description: "Pokerdom mod",
+    name: "Revolute",
+    short_name: "Revolute",
+    description: "Revolute",
     start_url: "/",
     display: "standalone",
     background_color: "#000",
     theme_color: "#000",
-    icons: [
-        {
-          src: "/web-app-manifest-192x192.png",
-          sizes: "192x192",
-          type: "image/png",
-          purpose: "any"
-        },
-        {
-          src: "/web-app-manifest-512x512.png",
-          sizes: "512x512",
-          type: "image/png",
-          purpose: "any"
-        }
-      ],
+    "icons": [
+      {
+          "src": "/iconx/android-chrome-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+      },
+      {
+          "src": "/iconx/android-chrome-512x512.png",
+          "sizes": "512x512",
+          "type": "image/png",
+      },
+      {
+        "src": "/iconx/android-chrome-maskable-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "purpose": "maskable"
+      },
+      {
+        "src": "/iconx/android-chrome-maskable-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "maskable"
+      }
+    ], 
     screenshots: [
       {
         src: "/screen/wide.png",

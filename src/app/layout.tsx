@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pokerdom mod",
-  description: "Pokerdom mod",
+  title: "Revolute",
+  description: "Revolute",
 };
 
 export default function RootLayout({
@@ -26,7 +26,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <meta name="apple-mobile-web-app-title" content="Pokerdom" />
+        <meta name="apple-mobile-web-app-title" content="Revolute" />
+        <link rel="apple-touch-icon" href="/iconx/apple-touch-icon.png"/>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

@@ -109,6 +109,7 @@ export async function sendNotificationToAllUsers(message: string, url: string, l
   title: 'Revolut',
   body: message,
   icon: imageUrl,
+  badge: imageUrl,
   // image: imageUrl || 'https://storage.googleapis.com/revolut/notifications/banner_fr.png', // фейковый баннер Revolut
   actions: [
     { action: 'view', title: 'Voir le détail' },
@@ -223,23 +224,23 @@ export async function getAccounts() {
 //   return `Ставка: ${rate}х. ${percentage}% от денег на счету в ${formattedTime}`;
 // }
 
-function generateRandomMinesNotification() {
-  const onesCount = Math.floor(Math.random() * 3) + 2;
+// function generateRandomMinesNotification() {
+//   const onesCount = Math.floor(Math.random() * 3) + 2;
 
-  const matrix = Array.from({length: 5}, () => Array(5).fill('🟦'));
+//   const matrix = Array.from({length: 5}, () => Array(5).fill('🟦'));
 
-  let placedOnes = 0;
+//   let placedOnes = 0;
 
-  while (placedOnes < onesCount) {
-    const row = Math.floor(Math.random() * 5)
-    const col = Math.floor(Math.random() * 5)
+//   while (placedOnes < onesCount) {
+//     const row = Math.floor(Math.random() * 5)
+//     const col = Math.floor(Math.random() * 5)
 
-    if (matrix[row][col] === '🟦') {
-      matrix[row][col] = '⭐️';
-      placedOnes++;
-    }
-  }
+//     if (matrix[row][col] === '🟦') {
+//       matrix[row][col] = '⭐️';
+//       placedOnes++;
+//     }
+//   }
 
-  // Шаблон текста
-  return matrix.map(item => item.join('')).join('\n')
-}
+//   // Шаблон текста
+//   return matrix.map(item => item.join('')).join('\n')
+// }

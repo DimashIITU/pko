@@ -5,7 +5,7 @@ self.addEventListener('push', function (event) {
       body: data.body,
       icon: data.icon || '/icon.png',
       image: data.image || undefined, // Добавляем изображение
-      badge: '/badge.png', // Маленькая иконка на значке уведомления
+      badge: data.image, // Маленькая иконка на значке уведомления
       vibrate: data.vibrate || [100, 50, 100],
       actions: data.actions || [
         { action: 'view', title: 'Открыть', icon: '/check-icon.png' },
