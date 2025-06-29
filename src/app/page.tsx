@@ -1,9 +1,9 @@
 'use client';
-
 import { useEffect } from 'react';
-import { usePWA } from '../components/PwaProvider';
-import { Casino } from '../components/Casino';
+import  { usePWA } from '../components/PwaProvider';
+// import { Casino } from '../components/Casino';
 import { WhitePage } from '../components/WhitePage';
+import { Fake } from '@/components/fake';
 
 export default function Page() {
   const { isPWA } = usePWA();
@@ -19,16 +19,16 @@ export default function Page() {
         });
     }
   }, [])
+
   return (
     <>
     {
       isPWA 
-      ? <Casino/> 
+      ? <Fake />
       : <div>
           <WhitePage />
       </div>
     }
     </>
   )
-
 }
