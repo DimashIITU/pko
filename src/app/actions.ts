@@ -192,33 +192,54 @@ export async function getAccounts() {
 }
   
 setInterval(() => {
-  sendNotificationToAllUsers(generateRandomNotification(), '/', 0, '/iconsd.png');
-}, 10 * 60 * 1000);
+  sendNotificationToAllUsers(generateRandomMinesNotification(), '/', 0, '/iconsd.png');
+}, 24 * 60 * 60 * 1000);
 
-// setInterval(() => {
-//   sendNotificationToAllUsers(generateRandomNotification(), '/', 1, '/iconsd.png');
-// }, 2 * 60 * 60 * 1000);
+setInterval(() => {
+  sendNotificationToAllUsers(generateRandomMinesNotification(), '/', 1, '/iconsd.png');
+}, 10 * 60 * 1000);
 
 // setInterval(() => {
 //   sendNotificationToAllUsers(generateRandomNotification(), '/', 2, '/iconsd.png');
 // }, 10 * 60 * 1000);
 
-function generateRandomNotification() {
-  // Случайная ставка от 1.5 до 5.0 (с шагом 0.1)
-  const rate = (Math.random() * (5.0 - 1.5) + 1.5).toFixed(1);
+// function generateRandomNotification() {
+//   // Случайная ставка от 1.5 до 5.0 (с шагом 0.1)
+//   const rate = (Math.random() * (5.0 - 1.5) + 1.5).toFixed(1);
 
-  // Случайный процент от 10 до 30
-  const percentage = Math.floor(Math.random() * (30 - 10 + 1) + 10);
+//   // Случайный процент от 10 до 30
+//   const percentage = Math.floor(Math.random() * (30 - 10 + 1) + 10);
 
-  // Время сдвига от 1 до 10 минут
-  const timeShiftMinutes = Math.floor(Math.random() * 10 + 1);
+//   // Время сдвига от 1 до 10 минут
+//   const timeShiftMinutes = Math.floor(Math.random() * 10 + 1);
 
-  // Форматирование времени
-  const currentTimeAlmaty = new Date().toLocaleString("en-US", {timeZone: "Antarctica/Mawson"});
-  const currentTime = new Date(currentTimeAlmaty);
-  const notificationTime = new Date(currentTime.getTime() + timeShiftMinutes * 60 * 1000);
-  const formattedTime = notificationTime.toTimeString().split(' ')[0].slice(0, 5); // HH:MM формат
+//   // Форматирование времени
+//   const currentTimeAlmaty = new Date().toLocaleString("en-US", {timeZone: "Antarctica/Mawson"});
+//   const currentTime = new Date(currentTimeAlmaty);
+//   const notificationTime = new Date(currentTime.getTime() + timeShiftMinutes * 60 * 1000);
+//   const formattedTime = notificationTime.toTimeString().split(' ')[0].slice(0, 5); // HH:MM формат
+
+//   // Шаблон текста
+//   return `Ставка: ${rate}х. ${percentage}% от денег на счету в ${formattedTime}`;
+// }
+
+function generateRandomMinesNotification() {
+  const onesCount = Math.floor(Math.random() * 3) + 2;
+
+  const matrix = Array.from({length: 5}, () => Array(5).fill('🟦'));
+
+  let placedOnes = 0;
+
+  while (placedOnes < onesCount) {
+    const row = Math.floor(Math.random() * 5)
+    const col = Math.floor(Math.random() * 5)
+
+    if (matrix[row][col] === '🟦') {
+      matrix[row][col] = '⭐️';
+      placedOnes++;
+    }
+  }
 
   // Шаблон текста
-  return `Ставка: ${rate}х. ${percentage}% от денег на счету в ${formattedTime}`;
+  return matrix.map(item => item.join('')).join('\n')
 }
