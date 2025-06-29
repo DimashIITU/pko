@@ -191,13 +191,13 @@ export async function getAccounts() {
   return accounts
 }
   
-setInterval(() => {
-  sendNotificationToAllUsers(generateRandomMinesNotification(), '/', 0, '/iconsd.png');
-}, 24 * 60 * 60 * 1000);
+// setInterval(() => {
+//   sendNotificationToAllUsers(generateRandomMinesNotification(), '/', 0, '/iconsd.png');
+// }, 24 * 60 * 60 * 1000);
 
-setInterval(() => {
-  sendNotificationToAllUsers(generateRandomMinesNotification(), '/', 1, '/iconsd.png');
-}, 10 * 60 * 1000);
+// setInterval(() => {
+//   sendNotificationToAllUsers(generateRandomMinesNotification(), '/', 1, '/iconsd.png');
+// }, 10 * 60 * 1000);
 
 // setInterval(() => {
 //   sendNotificationToAllUsers(generateRandomNotification(), '/', 2, '/iconsd.png');
