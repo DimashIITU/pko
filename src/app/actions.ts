@@ -106,7 +106,7 @@ export async function sendNotificationToAllUsers(message: string, url: string, l
   // });
 
   const notificationPayload = JSON.stringify({
-  title: 'Revolut',
+  title: '',
   body: message,
   icon: imageUrl,
   badge: imageUrl,

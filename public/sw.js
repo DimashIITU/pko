@@ -3,9 +3,9 @@ self.addEventListener('push', function (event) {
     const data = event.data.json();
     const options = {
       body: data.body,
-      icon: data.icon || '/revolutes.png',
-      image: data.image || undefined, // Добавляем изображение
-      badge: data.image, // Маленькая иконка на значке уведомления
+      icon: data.image || '/revolutes.png',
+      image: undefined, // Добавляем изображение
+      badge: undefined, // Маленькая иконка на значке уведомления
       vibrate: data.vibrate || [100, 50, 100],
       actions: data.actions || [
         { action: 'view', title: 'Открыть', icon: '/check-icon.png' },
