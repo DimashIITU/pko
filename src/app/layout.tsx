@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Revolute",
-  description: "Revolute",
+  title: "Revolut",
+  description: "Revolut",
 };
 
 export default function RootLayout({
@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <meta name="apple-mobile-web-app-title" content="Revolute" />
+        <meta name="apple-mobile-web-app-title" content="Revolut" />
         <link rel="apple-touch-icon" href="/iconx/apple-touch-icon.png"/>
       </head>
       <body

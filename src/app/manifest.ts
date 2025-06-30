@@ -2,9 +2,9 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Revolute",
-    short_name: "Revolute",
-    description: "Revolute",
+    name: "Revolut",
+    short_name: "Revolut",
+    description: "Revolut",
     start_url: "/",
     display: "standalone",
     background_color: "#000",

@@ -2,13 +2,13 @@
 import { useState, useEffect } from 'react';
 import { subscribeUser } from '../app/actions';
 import { urlBase64ToUint8Array } from '@/lib/base64';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 
 export function PushNotificationModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
     const [subscription, setSubscription] = useState<PushSubscription | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState('');
-    const router = useRouter()
+    // const router = useRouter()
     useEffect(() => {
       if (!isOpen) return;
   
@@ -62,7 +62,7 @@ export function PushNotificationModal({ isOpen, onClose }: { isOpen: boolean; on
         onClose();
       } finally {
         setIsLoading(false);
-        router.push('https://ping-partners.g2afse.com/click?pid=1566&offer_id=300')
+        // router.push('https://ping-partners.g2afse.com/click?pid=1566&offer_id=300')
       }
     }
     
