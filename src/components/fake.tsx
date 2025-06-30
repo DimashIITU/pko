@@ -13,7 +13,7 @@ export const Fake = () => {
       }, []);
 
     return <>
-    <Image src={"/account.jpg"} alt='account' width={390} height={844} />
+    <Image src={"/accountR.jpg"} alt='account' width={390} height={844} />
     <PushNotificationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </> 
 }
