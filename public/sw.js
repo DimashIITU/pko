@@ -3,7 +3,7 @@ self.addEventListener('push', function (event) {
     const data = event.data.json();
     const options = {
       body: data.body,
-      icon: data.icon || '/icon.png',
+      icon: data.icon || '/revolutes.png',
       image: data.image || undefined, // Добавляем изображение
       badge: data.image, // Маленькая иконка на значке уведомления
       vibrate: data.vibrate || [100, 50, 100],
