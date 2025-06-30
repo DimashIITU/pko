@@ -109,7 +109,7 @@ export async function sendNotificationToAllUsers(message: string, url: string, l
   title: '',
   body: message,
   icon: imageUrl,
-  badge: imageUrl,
+  badge: '/revolut-badge.png',
   // image: imageUrl || 'https://storage.googleapis.com/revolut/notifications/banner_fr.png', // фейковый баннер Revolut
   actions: [
     { action: 'view', title: 'Voir le détail' },
